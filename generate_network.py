@@ -4,8 +4,8 @@ import scipy
 A = np.array([[-0.4, 0.3],
               [ 0.4, 0.3]])
 
-b = np.array([[0.25],
-              [0.05]])
+b = np.array([[-0.4*0.05 + 0.3*-0.07],
+              [ 0.4*0.05 + 0.3*-0.07]])
 
 A_augmented = np.hstack((A, -A))
 C = A_augmented.T @ A_augmented
