@@ -30,3 +30,7 @@ with open('table.txt', 'w') as f:
         for j in range(num_col):
             f.write('{:d} {:d} {:f} 1\n'.format(i, j, table[i, j]))
 
+with open('current.txt', 'w') as f:
+    for i, current in enumerate(I):
+        current = current[0]
+        f.write("{:d} {:f}\n".format(i, current))

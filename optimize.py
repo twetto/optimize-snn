@@ -2,10 +2,12 @@ import iqif
 import numpy as np
 
 net = iqif.lifnet("neuron.txt", "table.txt")
-net.set_biascurrent(0, 0.016)
-net.set_biascurrent(1, -0.0126)
-net.set_biascurrent(2, -0.016)
-net.set_biascurrent(3, 0.0126)
+with open("current.txt", 'r') as f:
+    lines = f.readlines()
+    for line in lines:
+        line = line.split(" ")
+        net.set_biascurrent(int(line[0]), float(line[1]))
+
 #for i in range(4):
 #    net.set_vmin(i, -1)
 
@@ -33,4 +35,3 @@ for i in range(4):
     rate[i] = count / (steps - count)
 
 print('Firing rate:{}'.format(rate))
-#print('Firing rate:{:f}, {:f}'.format(net.spike_rate(0), net.spike_rate(1)))
