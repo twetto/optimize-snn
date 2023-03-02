@@ -11,27 +11,24 @@ with open("current.txt", 'r') as f:
 #for i in range(4):
 #    net.set_vmin(i, -1)
 
-fp0 = open("potential_0.txt", "w")
-fp1 = open("potential_1.txt", "w")
-fp2 = open("potential_2.txt", "w")
-fp3 = open("potential_3.txt", "w")
+files = []
+for i in range(net.num_neurons()):
+    files.append(open("potential_{:d}.txt".format(i), 'w'))
 
 steps = 500
 for i in range(steps):
     net.send_synapse()
-    fp0.write('{:f}\n'.format(net.potential(0)))
-    fp1.write('{:f}\n'.format(net.potential(1)))
-    fp2.write('{:f}\n'.format(net.potential(2)))
-    fp3.write('{:f}\n'.format(net.potential(3)))
-fp0.close()
-fp1.close()
-fp2.close()
-fp3.close()
+    for j in range(net.num_neurons()):
+        files[j].write('{:f}\n'.format(net.potential(j)))
 
-rate = np.zeros(4)
-for i in range(4):
+for i in range(net.num_neurons()):
+    files[i].close()
+
+rate = np.zeros(net.num_neurons())
+for i in range(net.num_neurons()):
     count = net.spike_count(i)
-    #rate[i] = count / (steps)
-    rate[i] = count / (steps - count)
+    #rate[i] = count / (steps)          # my SNN simulator can only
+    rate[i] = count / (steps - count)   # fire every other timestep
+                                        
 
 print('Firing rate:{}'.format(rate))
