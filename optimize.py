@@ -31,4 +31,4 @@ for i in range(net.num_neurons()):
     rate[i] = count / (steps - count)   # fire every other timestep
                                         
 
-print('Firing rate:{}'.format(rate))
+print('Firing rate:\n{}'.format(rate))

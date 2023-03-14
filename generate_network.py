@@ -1,11 +1,12 @@
 import numpy as np
 import scipy
 
-A = np.array([[-0.4, 0.3],
-              [ 0.4, 0.3]])
 
-b = np.array([[-0.4*0.002 + 0.3*-0.006],
-              [ 0.4*0.002 + 0.3*-0.006]])
+A = np.random.rand(400, 10)
+b = np.random.rand(400, 1)
+A = A * 255 - 128
+b = b * 100 - 50
+#x = np.inv(A) @ b
 
 # rate limit multiplier. If multiply by d, the final firing rates also need to multiply by d.
 #A *= 4
@@ -30,7 +31,7 @@ print("Solve Cx = I using SciPy NNLS:\n{}".format(x_sp))
 
 with open('neuron.txt', 'w') as f:
     for i, current in enumerate(I):
-        f.write('{:d} 0 0.5 1 1 0\n'.format(i))
+        f.write('{:d} 0 0 1 1 0\n'.format(i))
 
 table = 1 * -C.T
 #print("SNN weight matrix = -C.T:\n{}".format(table))
